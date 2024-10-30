@@ -1,14 +1,19 @@
 import express, { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
+
+import setupSwagger from "./docs/swagger";
+
 import userRouter from "./src/routes/user-router";
 import taskRouter from "./src/routes/task-router";
 
 const app = express();
 const port = 3000;
 
-const prisma = new PrismaClient();
+setupSwagger(app);
 
 app.use(express.json());
+
+const prisma = new PrismaClient();
 
 app.use("/users", userRouter);
 app.use("/tasks", taskRouter);

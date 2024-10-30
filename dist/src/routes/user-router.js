@@ -9,6 +9,16 @@ const task_controller_1 = __importDefault(require("../controllers/task-controlle
 const router = (0, express_1.Router)();
 // GET
 // get all users
+/**
+ * @swagger
+ * /users:
+ *   get:
+ *     summary: Retrieve a list of users
+ *     description: This API retrieves all users.
+ *     responses:
+ *       200:
+ *         description: A list of users
+ */
 router.get("/", user_controller_1.default.get_users);
 router.get("/:id", user_controller_1.default.get_user_by_id);
 router.get("/:id/tasks", task_controller_1.default.get_tasks_by_user_id);
