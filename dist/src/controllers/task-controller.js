@@ -16,6 +16,22 @@ const client_1 = require("@prisma/client");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const prisma = new client_1.PrismaClient();
 const Task = prisma.task;
+// CREATE
+const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const title = req.body.title;
+    const description = req.body.description;
+    const userId = parseInt(req.body.userId); // change this to req.params later
+    const data = {
+        title,
+        description,
+        userId,
+    };
+    const task = yield prisma.task.create({ data });
+    res
+        .status(200)
+        .json({ message: `Task succesfully added for user ${userId}`, data });
+}));
+// READ
 const get_tasks = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma.task.findMany();
     res.json(data);
@@ -25,7 +41,7 @@ const get_task = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
     res.json(data);
 }));
 const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userId = parseInt(req.params.userId);
+    const userId = parseInt(req.params.id);
     const data = yield prisma.task.findMany({
         where: {
             userId: {
@@ -41,20 +57,8 @@ const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => 
         data,
     });
 }));
-const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const title = req.body.title;
-    const description = req.body.description;
-    const userId = parseInt(req.body.userId); // change this to req.params later
-    const data = {
-        title,
-        description,
-        userId,
-    };
-    const task = yield prisma.task.create({ data });
-    res
-        .status(200)
-        .json({ message: `Task succesfully added for user ${userId}`, data });
-}));
+// UPDATE
+// DELETE
 exports.default = {
     get_tasks,
     get_task,

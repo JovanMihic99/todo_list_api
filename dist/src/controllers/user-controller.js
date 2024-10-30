@@ -49,9 +49,23 @@ const get_user_by_id = (0, express_async_handler_1.default)((req, res) => __awai
 }));
 // UPDATE
 // DELETE
-const delete_user = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () { }));
+const delete_user = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = parseInt(req.params.userId);
+    const deleteTasks = prisma.task.deleteMany({
+        where: {
+            userId: userId,
+        },
+    });
+    const deleteUser = prisma.user.delete({
+        where: {
+            id: userId,
+        },
+    });
+    const transaction = yield prisma.$transaction([deleteTasks, deleteUser]);
+}));
 exports.default = {
     get_users,
     get_user_by_id,
     add_user,
+    delete_user,
 };

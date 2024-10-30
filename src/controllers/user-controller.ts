@@ -39,10 +39,25 @@ const get_user_by_id = asyncHandler(async (req, res) => {
 // UPDATE
 
 // DELETE
-const delete_user = asyncHandler(async (req, res) => {});
+const delete_user = asyncHandler(async (req, res) => {
+  const userId = parseInt(req.params.userId);
+  const deleteTasks = prisma.task.deleteMany({
+    where: {
+      userId: userId,
+    },
+  });
+  const deleteUser = prisma.user.delete({
+    where: {
+      id: userId,
+    },
+  });
+
+  const transaction = await prisma.$transaction([deleteTasks, deleteUser]);
+});
 
 export default {
   get_users,
   get_user_by_id,
   add_user,
+  delete_user,
 };
