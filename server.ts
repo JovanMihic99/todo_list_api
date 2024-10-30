@@ -13,9 +13,11 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.get("/tasks", taskController.task_list);
+app.get("/tasks", taskController.get_tasks);
+app.get("/tasks/user/:userId", taskController.get_tasks_by_user);
+app.post("/task", taskController.add_task);
 
-app.use((err: Error, req: Request, res: Response) => {
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });

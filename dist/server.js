@@ -13,8 +13,10 @@ app.use(express_1.default.json());
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
-app.get("/tasks", task_controller_1.default.task_list);
-app.use((err, req, res) => {
+app.get("/tasks", task_controller_1.default.get_tasks);
+app.get("/tasks/user/:userId", task_controller_1.default.get_tasks_by_user);
+app.post("/task", task_controller_1.default.add_task);
+app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send("Something broke!");
 });
