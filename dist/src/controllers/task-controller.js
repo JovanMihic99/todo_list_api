@@ -34,11 +34,16 @@ const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
 // READ
 const get_tasks = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma.task.findMany();
-    res.json(data);
+    res.status(200).json(data);
 }));
-const get_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma.task.findMany();
-    res.json(data);
+const get_task_by_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = parseInt(req.params.id);
+    const data = yield prisma.task.findUnique({
+        where: {
+            id: id,
+        },
+    });
+    res.json({ message: `Successfully fetched task with id: ${id}`, data });
 }));
 const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = parseInt(req.params.id);
@@ -61,7 +66,7 @@ const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => 
 // DELETE
 exports.default = {
     get_tasks,
-    get_task,
+    get_task_by_id,
     get_tasks_by_user_id,
     add_task,
 };

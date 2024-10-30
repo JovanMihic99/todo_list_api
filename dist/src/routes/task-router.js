@@ -8,6 +8,7 @@ const task_controller_1 = __importDefault(require("../controllers/task-controlle
 const router = (0, express_1.Router)();
 // GET
 router.get("/", task_controller_1.default.get_tasks);
+router.get("/:id", task_controller_1.default.get_task_by_id);
 // POST
 router.post("/", task_controller_1.default.add_task);
 exports.default = router;
