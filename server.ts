@@ -3,24 +3,20 @@ import { PrismaClient } from "@prisma/client";
 
 import setupSwagger from "./docs/swagger";
 
-import userRouter from "./src/routes/user-router";
-import taskRouter from "./src/routes/task-router";
+import userRouter from "./src/routes/v1/user-router";
+import taskRouter from "./src/routes/v1/task-router";
 
 const app = express();
 const port = 3000;
+app.use(express.json());
+const prisma = new PrismaClient();
 
 setupSwagger(app);
 
-app.use(express.json());
-
-const prisma = new PrismaClient();
-
-app.use("/users", userRouter);
-app.use("/tasks", taskRouter);
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+const v1 = express.Router();
+v1.use("/users", userRouter);
+v1.use("/tasks", taskRouter);
+app.use("/api/v1", v1);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
