@@ -14,6 +14,7 @@ router.get("/:id", user_controller_1.default.get_user_by_id);
 router.get("/:id/tasks", task_controller_1.default.get_tasks_by_user_id);
 // POST
 router.post("/", user_controller_1.default.add_user);
+router.post("/:id/task", task_controller_1.default.add_task);
 // DELETE
 router.delete("/:userId", user_controller_1.default.delete_user);
 exports.default = router;

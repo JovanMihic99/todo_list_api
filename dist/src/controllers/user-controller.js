@@ -31,7 +31,7 @@ const add_user = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
     });
     res
         .status(200)
-        .json({ message: `Succesfully added User with id: ${user.id}`, data });
+        .json({ message: `Succesfully added User with id: ${user.id}`, user });
 }));
 // READ
 const get_users = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {

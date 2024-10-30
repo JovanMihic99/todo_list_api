@@ -20,16 +20,17 @@ const Task = prisma.task;
 const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const title = req.body.title;
     const description = req.body.description;
-    const userId = parseInt(req.body.userId); // change this to req.params later
+    const userId = parseInt(req.params.id);
     const data = {
         title,
         description,
         userId,
     };
     const task = yield prisma.task.create({ data });
-    res
-        .status(200)
-        .json({ message: `Task succesfully added for user ${userId}`, data });
+    res.status(200).json({
+        message: `Task succesfully added for user with id: ${userId}`,
+        task,
+    });
 }));
 // READ
 const get_tasks = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -64,6 +65,15 @@ const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => 
 }));
 // UPDATE
 // DELETE
+const delete_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = parseInt(req.params.id);
+    const deleteTask = yield prisma.task.delete({
+        where: {
+            id: id,
+        },
+    });
+    res.status(200).json(`Sucessfully deleted task with id ${id}`);
+}));
 exports.default = {
     get_tasks,
     get_task_by_id,

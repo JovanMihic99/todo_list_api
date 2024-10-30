@@ -12,6 +12,7 @@ router.get("/:id/tasks", taskController.get_tasks_by_user_id);
 
 // POST
 router.post("/", userController.add_user);
+router.post("/:id/task", taskController.add_task);
 
 // DELETE
 router.delete("/:userId", userController.delete_user);

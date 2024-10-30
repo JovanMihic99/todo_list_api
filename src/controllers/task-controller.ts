@@ -7,16 +7,17 @@ const Task = prisma.task;
 const add_task = asyncHandler(async (req, res) => {
   const title = req.body.title;
   const description = req.body.description;
-  const userId = parseInt(req.body.userId); // change this to req.params later
+  const userId = parseInt(req.params.id);
   const data = {
     title,
     description,
     userId,
   };
   const task = await prisma.task.create({ data });
-  res
-    .status(200)
-    .json({ message: `Task succesfully added for user ${userId}`, data });
+  res.status(200).json({
+    message: `Task succesfully added for user with id: ${userId}`,
+    task,
+  });
 });
 
 // READ
@@ -56,6 +57,15 @@ const get_tasks_by_user_id = asyncHandler(async (req, res) => {
 // UPDATE
 
 // DELETE
+const delete_task = asyncHandler(async (req, res) => {
+  const id = parseInt(req.params.id);
+  const deleteTask = await prisma.task.delete({
+    where: {
+      id: id,
+    },
+  });
+  res.status(200).json(`Sucessfully deleted task with id ${id}`);
+});
 
 export default {
   get_tasks,
