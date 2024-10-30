@@ -59,12 +59,17 @@ const get_tasks_by_user_id = asyncHandler(async (req, res) => {
 // DELETE
 const delete_task = asyncHandler(async (req, res) => {
   const id = parseInt(req.params.id);
-  const deleteTask = await prisma.task.delete({
+  const deletedTask = await prisma.task.delete({
     where: {
       id: id,
     },
   });
-  res.status(200).json(`Sucessfully deleted task with id ${id}`);
+  res
+    .status(200)
+    .json({
+      message: `Sucessfully deleted task with id ${id}`,
+      deleted_task: deletedTask,
+    });
 });
 
 export default {
@@ -72,4 +77,5 @@ export default {
   get_task_by_id,
   get_tasks_by_user_id,
   add_task,
+  delete_task,
 };

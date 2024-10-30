@@ -9,4 +9,7 @@ router.get("/:id", taskController.get_task_by_id);
 
 // POST
 
+// DELETE
+router.delete("/:id", taskController.delete_task);
+
 export default router;

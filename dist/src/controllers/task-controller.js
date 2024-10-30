@@ -67,16 +67,22 @@ const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => 
 // DELETE
 const delete_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);
-    const deleteTask = yield prisma.task.delete({
+    const deletedTask = yield prisma.task.delete({
         where: {
             id: id,
         },
     });
-    res.status(200).json(`Sucessfully deleted task with id ${id}`);
+    res
+        .status(200)
+        .json({
+        message: `Sucessfully deleted task with id ${id}`,
+        deleted_task: deletedTask,
+    });
 }));
 exports.default = {
     get_tasks,
     get_task_by_id,
     get_tasks_by_user_id,
     add_task,
+    delete_task,
 };

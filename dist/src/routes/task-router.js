@@ -10,4 +10,6 @@ const router = (0, express_1.Router)();
 router.get("/", task_controller_1.default.get_tasks);
 router.get("/:id", task_controller_1.default.get_task_by_id);
 // POST
+// DELETE
+router.delete("/:id", task_controller_1.default.delete_task);
 exports.default = router;
