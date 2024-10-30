@@ -5,17 +5,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const client_1 = require("@prisma/client");
-const task_controller_1 = __importDefault(require("./src/controllers/task-controller"));
+const user_router_1 = __importDefault(require("./src/routes/user-router"));
+const task_router_1 = __importDefault(require("./src/routes/task-router"));
 const app = (0, express_1.default)();
 const port = 3000;
 const prisma = new client_1.PrismaClient();
 app.use(express_1.default.json());
+app.use("/users", user_router_1.default);
+app.use("/tasks", task_router_1.default);
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
-app.get("/tasks", task_controller_1.default.get_tasks);
-app.get("/tasks/user/:userId", task_controller_1.default.get_tasks_by_user);
-app.post("/task", task_controller_1.default.add_task);
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send("Something broke!");

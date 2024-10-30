@@ -24,9 +24,8 @@ const get_task = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
     const data = yield prisma.task.findMany();
     res.json(data);
 }));
-const get_tasks_by_user = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = parseInt(req.params.userId);
-    console.log(userId);
     const data = yield prisma.task.findMany({
         where: {
             userId: {
@@ -37,7 +36,10 @@ const get_tasks_by_user = (0, express_async_handler_1.default)((req, res) => __a
             done: "asc",
         },
     });
-    res.json(data);
+    res.status(200).json({
+        message: `Succesffuly fetched ${data.length} tasks belonging to user with id: ${userId}`,
+        data,
+    });
 }));
 const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const title = req.body.title;
@@ -56,6 +58,6 @@ const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
 exports.default = {
     get_tasks,
     get_task,
-    get_tasks_by_user,
+    get_tasks_by_user_id,
     add_task,
 };

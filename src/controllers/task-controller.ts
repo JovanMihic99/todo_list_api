@@ -14,9 +14,8 @@ const get_task = asyncHandler(async (req, res) => {
   res.json(data);
 });
 
-const get_tasks_by_user = asyncHandler(async (req, res) => {
+const get_tasks_by_user_id = asyncHandler(async (req, res) => {
   const userId = parseInt(req.params.userId);
-  console.log(userId);
   const data = await prisma.task.findMany({
     where: {
       userId: {
@@ -27,7 +26,10 @@ const get_tasks_by_user = asyncHandler(async (req, res) => {
       done: "asc",
     },
   });
-  res.json(data);
+  res.status(200).json({
+    message: `Succesffuly fetched ${data.length} tasks belonging to user with id: ${userId}`,
+    data,
+  });
 });
 
 const add_task = asyncHandler(async (req, res) => {
@@ -48,6 +50,6 @@ const add_task = asyncHandler(async (req, res) => {
 export default {
   get_tasks,
   get_task,
-  get_tasks_by_user,
+  get_tasks_by_user_id,
   add_task,
 };

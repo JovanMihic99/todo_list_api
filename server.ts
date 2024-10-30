@@ -1,6 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
-import taskController from "./src/controllers/task-controller";
+import userRouter from "./src/routes/user-router";
+import taskRouter from "./src/routes/task-router";
 
 const app = express();
 const port = 3000;
@@ -8,14 +9,12 @@ const port = 3000;
 const prisma = new PrismaClient();
 
 app.use(express.json());
+app.use("/users", userRouter);
+app.use("/tasks", taskRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
-
-app.get("/tasks", taskController.get_tasks);
-app.get("/tasks/user/:userId", taskController.get_tasks_by_user);
-app.post("/task", taskController.add_task);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
