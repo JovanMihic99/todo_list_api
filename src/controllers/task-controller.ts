@@ -33,7 +33,13 @@ const get_task_by_id = asyncHandler(async (req, res) => {
       id: id,
     },
   });
-  res.json({ message: `Successfully fetched task with id: ${id}`, data });
+  if (data === null) {
+    res.status(404).json({ message: `Error: Task ${id} does not exist` });
+    return;
+  }
+  res
+    .status(200)
+    .json({ message: `Successfully fetched task with id: ${id}`, data });
 });
 
 const get_tasks_by_user_id = asyncHandler(async (req, res) => {
@@ -55,6 +61,26 @@ const get_tasks_by_user_id = asyncHandler(async (req, res) => {
 });
 
 // UPDATE
+const update_task_by_id = asyncHandler(async (req, res) => {
+  const id = parseInt(req.params.id);
+  const title = req.body.title;
+  const description = req.body.description;
+  const finishBy = req.body.finishBy;
+  const updateTask = await prisma.task.update({
+    where: {
+      id: id,
+    },
+    data: {
+      title,
+      description,
+      finishBy,
+    },
+  });
+  res.status(200).json({
+    message: `Succesffuly updated task with id: ${id}`,
+    data: updateTask,
+  });
+});
 
 // DELETE
 const delete_task = asyncHandler(async (req, res) => {
@@ -64,18 +90,17 @@ const delete_task = asyncHandler(async (req, res) => {
       id: id,
     },
   });
-  res
-    .status(200)
-    .json({
-      message: `Sucessfully deleted task with id ${id}`,
-      deleted_task: deletedTask,
-    });
+  res.status(200).json({
+    message: `Sucessfully deleted task with id ${id}`,
+    deleted_task: deletedTask,
+  });
 });
 
 export default {
+  add_task,
   get_tasks,
   get_task_by_id,
   get_tasks_by_user_id,
-  add_task,
+  update_task_by_id,
   delete_task,
 };

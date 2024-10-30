@@ -44,7 +44,13 @@ const get_task_by_id = (0, express_async_handler_1.default)((req, res) => __awai
             id: id,
         },
     });
-    res.json({ message: `Successfully fetched task with id: ${id}`, data });
+    if (data === null) {
+        res.status(404).json({ message: `Error: Task ${id} does not exist` });
+        return;
+    }
+    res
+        .status(200)
+        .json({ message: `Successfully fetched task with id: ${id}`, data });
 }));
 const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = parseInt(req.params.id);
@@ -64,6 +70,26 @@ const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => 
     });
 }));
 // UPDATE
+const update_task_by_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = parseInt(req.params.id);
+    const title = req.body.title;
+    const description = req.body.description;
+    const finishBy = req.body.finishBy;
+    const updateTask = yield prisma.task.update({
+        where: {
+            id: id,
+        },
+        data: {
+            title,
+            description,
+            finishBy,
+        },
+    });
+    res.status(200).json({
+        message: `Succesffuly updated task with id: ${id}`,
+        data: updateTask,
+    });
+}));
 // DELETE
 const delete_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);
@@ -72,17 +98,16 @@ const delete_task = (0, express_async_handler_1.default)((req, res) => __awaiter
             id: id,
         },
     });
-    res
-        .status(200)
-        .json({
+    res.status(200).json({
         message: `Sucessfully deleted task with id ${id}`,
         deleted_task: deletedTask,
     });
 }));
 exports.default = {
+    add_task,
     get_tasks,
     get_task_by_id,
     get_tasks_by_user_id,
-    add_task,
+    update_task_by_id,
     delete_task,
 };
