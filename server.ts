@@ -9,6 +9,7 @@ const port = 3000;
 const prisma = new PrismaClient();
 
 app.use(express.json());
+
 app.use("/users", userRouter);
 app.use("/tasks", taskRouter);
 
@@ -22,5 +23,5 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Todo List app listening on port ${port}`);
 });
