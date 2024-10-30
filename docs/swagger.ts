@@ -17,7 +17,7 @@ const setupSwagger = (app: express.Application) => {
         },
       ],
     },
-    apis: ["./src/routes/*.ts"],
+    apis: ["./src/routes/v1/*.ts"],
   };
 
   const swaggerDocs = swaggerJsDoc(swaggerOptions);

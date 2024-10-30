@@ -20,7 +20,7 @@ const setupSwagger = (app) => {
                 },
             ],
         },
-        apis: ["./src/routes/*.ts"],
+        apis: ["./src/routes/v1/*.ts"],
     };
     const swaggerDocs = (0, swagger_jsdoc_1.default)(swaggerOptions);
     app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerDocs));
