@@ -16,6 +16,10 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("seeding your database...");
         for (let i = 0; i < 100; i++) {
+            const currentDate = faker_1.faker.date.between({
+                from: "2020-01-01",
+                to: Date.now(),
+            });
             const user = yield prisma.user.create({
                 data: {
                     email: faker_1.faker.internet.email(),
@@ -26,6 +30,13 @@ function main() {
                             title: faker_1.faker.lorem.sentence(),
                             description: faker_1.faker.lorem.paragraph(),
                             done: faker_1.faker.datatype.boolean(),
+                            createdAt: currentDate,
+                            finishBy: Math.random() < 0.5
+                                ? faker_1.faker.date.between({
+                                    from: currentDate,
+                                    to: "2026-01-01",
+                                })
+                                : null,
                         })),
                     },
                 },

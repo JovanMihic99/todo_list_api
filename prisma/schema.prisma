@@ -13,6 +13,8 @@ model Task {
   description String?
   done        Boolean @default(false)
   userId      Int?
+  createdAt   DateTime @default(now())
+  finishBy    DateTime?
   User        User?   @relation(fields: [userId], references: [id])
 }
 
