@@ -75,6 +75,12 @@ const update_task_by_id = (0, express_async_handler_1.default)((req, res) => __a
     const title = req.body.title;
     const description = req.body.description;
     const finishBy = req.body.finishBy;
+    if (finishBy && isNaN(Date.parse(finishBy))) {
+        res.status(400).json({
+            message: "Invalid date format for finishBy. Please provide a valid date.",
+        });
+        return;
+    }
     const updateTask = yield prisma.task.update({
         where: {
             id: id,
