@@ -69,3 +69,4 @@ exports.default = {
     add_user,
     delete_user,
 };
+//# sourceMappingURL=user-controller.js.map

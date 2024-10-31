@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_controller_1 = __importDefault(require("../../controllers/user-controller"));
 const task_controller_1 = __importDefault(require("../../controllers/task-controller"));
+const auth_controller_1 = __importDefault(require("../../controllers/auth-controller"));
 const router = (0, express_1.Router)();
 // GET
 router.get("/", user_controller_1.default.get_users);
@@ -14,6 +15,8 @@ router.get("/:id/tasks", task_controller_1.default.get_tasks_by_user_id);
 // POST
 router.post("/", user_controller_1.default.add_user);
 router.post("/:id/task", task_controller_1.default.add_task);
+router.post("/login", auth_controller_1.default.login);
 // DELETE
 router.delete("/:userId", user_controller_1.default.delete_user);
 exports.default = router;
+//# sourceMappingURL=user-router.js.map

@@ -117,3 +117,4 @@ exports.default = {
     update_task_by_id,
     delete_task,
 };
+//# sourceMappingURL=task-controller.js.map

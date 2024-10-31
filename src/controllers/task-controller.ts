@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import asyncHandler from "express-async-handler";
-
+// import { authenticateToken } from "../middleware/auth";
 const prisma = new PrismaClient();
 
 const Task = prisma.task;

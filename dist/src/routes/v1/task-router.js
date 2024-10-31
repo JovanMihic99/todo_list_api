@@ -14,3 +14,4 @@ router.post("/:id", task_controller_1.default.update_task_by_id);
 // DELETE
 router.delete("/:id", task_controller_1.default.delete_task);
 exports.default = router;
+//# sourceMappingURL=task-router.js.map
