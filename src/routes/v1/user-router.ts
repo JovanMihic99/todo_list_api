@@ -12,6 +12,7 @@ router.get("/:id", userController.get_user_by_id);
 router.get(
   "/:id/tasks",
   auth.authenticate,
+  auth.authorize,
   taskController.get_tasks_by_user_id
 );
 

@@ -31,7 +31,20 @@ const authenticate = asyncHandler(
     }
   }
 );
+const authorize = asyncHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.params.id;
+    if (req.user.id !== parseInt(id)) {
+      res.status(403).json({
+        message: "You are not authorized to view this resource.",
+      });
+      return;
+    }
+    next();
+  }
+);
 
 export default {
   authenticate,
+  authorize,
 };
