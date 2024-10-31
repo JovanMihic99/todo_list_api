@@ -18,6 +18,7 @@ router.get(
 // POST
 router.post("/", userController.add_user);
 router.post("/:id/task", taskController.add_task);
+router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 
 // DELETE

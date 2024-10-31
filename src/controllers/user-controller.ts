@@ -22,6 +22,7 @@ const add_user = asyncHandler(async (req, res) => {
     .status(200)
     .json({ message: `Succesfully added User with id: ${user.id}`, user });
 });
+
 // READ
 const get_users = asyncHandler(async (req, res) => {
   const data = await prisma.user.findMany();
