@@ -26,14 +26,30 @@ const add_task = asyncHandler(async (req, res) => {
 // READ
 const get_tasks = asyncHandler(async (req, res) => {
   const userId = req.user.id;
-  const data = await prisma.task.findMany({ where: { userId } });
+  const page = parseInt(req.query.page as string) || 1;
+  const limit = parseInt(req.query.limit as string) || 10;
+  const skip = (page - 1) * limit;
+
+  const data = await prisma.task.findMany({
+    where: { userId },
+    skip: skip,
+    take: limit,
+  });
+
+  // Fetch total count of tasks for the user to calculate total pages
+  const totalTasks = await prisma.task.count({ where: { userId } });
+  const totalPages = Math.ceil(totalTasks / limit);
+
   if (!data) {
     res.status(404).json({ message: "No tasks found" });
     return;
   }
-  res
-    .status(200)
-    .json({ message: `Sucssesfully fetched ${data.length} tasks`, data });
+  res.status(200).json({
+    message: `Successfully fetched ${data.length} tasks`,
+    page: page,
+    totalPages: totalPages,
+    data,
+  });
 });
 
 const get_task_by_id = asyncHandler(async (req, res) => {

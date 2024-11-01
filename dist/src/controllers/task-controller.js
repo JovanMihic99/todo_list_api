@@ -38,14 +38,27 @@ const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
 // READ
 const get_tasks = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userId = req.user.id;
-    const data = yield prisma.task.findMany({ where: { userId } });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const skip = (page - 1) * limit;
+    const data = yield prisma.task.findMany({
+        where: { userId },
+        skip: skip,
+        take: limit,
+    });
+    // Fetch total count of tasks for the user to calculate total pages
+    const totalTasks = yield prisma.task.count({ where: { userId } });
+    const totalPages = Math.ceil(totalTasks / limit);
     if (!data) {
         res.status(404).json({ message: "No tasks found" });
         return;
     }
-    res
-        .status(200)
-        .json({ message: `Sucssesfully fetched ${data.length} tasks`, data });
+    res.status(200).json({
+        message: `Successfully fetched ${data.length} tasks`,
+        page: page,
+        totalPages: totalPages,
+        data,
+    });
 }));
 const get_task_by_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);
