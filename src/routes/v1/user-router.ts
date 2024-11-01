@@ -9,16 +9,10 @@ const router = Router();
 // GET
 router.get("/", userController.get_users);
 router.get("/:id", userController.get_user_by_id);
-router.get(
-  "/:id/tasks",
-  auth.authenticate,
-  auth.authorize,
-  taskController.get_tasks_by_user_id
-);
 
 // POST
 router.post("/", userController.add_user);
-router.post("/:id/task", taskController.add_task);
+
 router.post("/signup", authController.signup);
 router.post("/login", authController.login);
 
