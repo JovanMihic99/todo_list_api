@@ -16,23 +16,6 @@ const client_1 = require("@prisma/client");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const prisma = new client_1.PrismaClient();
 const user = prisma.user;
-// CREATE
-const add_user = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const name = req.params.name;
-    const email = req.params.email;
-    const password = req.params.password; // add hashing later
-    const data = {
-        name,
-        email,
-        password,
-    };
-    const user = yield prisma.user.create({
-        data,
-    });
-    res
-        .status(200)
-        .json({ message: `Succesfully added User with id: ${user.id}`, user });
-}));
 // READ
 const get_users = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield prisma.user.findMany();
@@ -50,7 +33,7 @@ const get_user_by_id = (0, express_async_handler_1.default)((req, res) => __awai
 // UPDATE
 // DELETE
 const delete_user = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userId = parseInt(req.params.userId);
+    const userId = parseInt(req.user.id);
     const deleteTasks = prisma.task.deleteMany({
         where: {
             userId: userId,
@@ -62,11 +45,14 @@ const delete_user = (0, express_async_handler_1.default)((req, res) => __awaiter
         },
     });
     const transaction = yield prisma.$transaction([deleteTasks, deleteUser]);
+    res.status(200).json({
+        message: `Successfully removed user with id ${userId}`,
+        removedUser: req.user,
+    });
 }));
 exports.default = {
     get_users,
     get_user_by_id,
-    add_user,
     delete_user,
 };
 //# sourceMappingURL=user-controller.js.map

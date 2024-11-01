@@ -14,17 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
+// import { authenticateToken } from "../middleware/auth";
 const prisma = new client_1.PrismaClient();
 const Task = prisma.task;
 // CREATE
 const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const title = req.body.title;
     const description = req.body.description;
-    const userId = parseInt(req.params.id);
+    const userId = req.user.id;
+    const finishBy = req.body.finishBy;
     const data = {
         title,
         description,
         userId,
+        finishBy,
     };
     const task = yield prisma.task.create({ data });
     res.status(200).json({
@@ -34,8 +37,15 @@ const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(vo
 }));
 // READ
 const get_tasks = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = yield prisma.task.findMany();
-    res.status(200).json(data);
+    const userId = req.user.id;
+    const data = yield prisma.task.findMany({ where: { userId } });
+    if (!data) {
+        res.status(404).json({ message: "No tasks found" });
+        return;
+    }
+    res
+        .status(200)
+        .json({ message: `Sucssesfully fetched ${data.length} tasks`, data });
 }));
 const get_task_by_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);

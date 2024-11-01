@@ -18,6 +18,7 @@ const get_user_by_id = asyncHandler(async (req, res) => {
   });
   res.status(200).json(data);
 });
+
 // UPDATE
 
 // DELETE
