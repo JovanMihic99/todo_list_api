@@ -14,9 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const client_1 = require("@prisma/client");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
-// import { authenticateToken } from "../middleware/auth";
 const prisma = new client_1.PrismaClient();
-const Task = prisma.task;
 // CREATE
 const add_task = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const title = req.body.title;
@@ -46,7 +44,7 @@ const get_tasks = (0, express_async_handler_1.default)((req, res) => __awaiter(v
         skip: skip,
         take: limit,
     });
-    // Fetch total count of tasks for the user to calculate total pages
+    // fetch total count of tasks for the user to calculate total pages
     const totalTasks = yield prisma.task.count({ where: { userId } });
     const totalPages = Math.ceil(totalTasks / limit);
     if (!data) {

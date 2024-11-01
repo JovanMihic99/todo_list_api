@@ -1,9 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import asyncHandler from "express-async-handler";
-// import { authenticateToken } from "../middleware/auth";
+
 const prisma = new PrismaClient();
 
-const Task = prisma.task;
 // CREATE
 const add_task = asyncHandler(async (req, res) => {
   const title = req.body.title;
@@ -36,7 +35,7 @@ const get_tasks = asyncHandler(async (req, res) => {
     take: limit,
   });
 
-  // Fetch total count of tasks for the user to calculate total pages
+  // fetch total count of tasks for the user to calculate total pages
   const totalTasks = await prisma.task.count({ where: { userId } });
   const totalPages = Math.ceil(totalTasks / limit);
 
