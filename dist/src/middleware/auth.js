@@ -22,11 +22,9 @@ const authenticate = (0, express_async_handler_1.default)((req, res, next) => __
         const authHeader = req.headers["authorization"];
         const token = authHeader && authHeader.split(" ")[1];
         const decoded = jsonwebtoken_1.default.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        console.log("decoded", decoded);
         req.user = yield user.findUnique({
             where: { id: parseInt(decoded["id"]) },
         });
-        console.log(req.user);
         next();
     }
     catch (error) {

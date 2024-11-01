@@ -8,6 +8,7 @@ const client_1 = require("@prisma/client");
 const swagger_1 = __importDefault(require("./docs/swagger"));
 const user_router_1 = __importDefault(require("./src/routes/v1/user-router"));
 const task_router_1 = __importDefault(require("./src/routes/v1/task-router"));
+const auth_1 = __importDefault(require("./src/middleware/auth"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use(express_1.default.json());
@@ -15,7 +16,7 @@ const prisma = new client_1.PrismaClient();
 (0, swagger_1.default)(app);
 const v1 = express_1.default.Router();
 v1.use("/users", user_router_1.default);
-v1.use("/tasks", task_router_1.default);
+v1.use("/tasks", auth_1.default.authenticate, task_router_1.default);
 app.use("/api/v1", v1);
 app.use((err, req, res, next) => {
     console.error(err.stack);

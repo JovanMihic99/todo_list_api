@@ -43,7 +43,7 @@ const signup = asyncHandler(async (req, res) => {
     });
     return;
   }
-  const hash = await bcrypt.hashSync(req.body.password, 10, (err, hash) => {
+  const hash = await bcrypt.hashSync(password, 10, (err, hash) => {
     if (err) {
       res.status(500).json({
         error: err,
@@ -51,8 +51,7 @@ const signup = asyncHandler(async (req, res) => {
       return;
     }
   });
-  console.log(hash);
-  const createdUseer = await prisma.user.create({
+  const createdUser = await prisma.user.create({
     data: {
       email,
       password: hash,

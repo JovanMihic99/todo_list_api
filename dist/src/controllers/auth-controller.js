@@ -47,7 +47,7 @@ const signup = (0, express_async_handler_1.default)((req, res) => __awaiter(void
         });
         return;
     }
-    const hash = yield bcrypt_1.default.hashSync(req.body.password, 10, (err, hash) => {
+    const hash = yield bcrypt_1.default.hashSync(password, 10, (err, hash) => {
         if (err) {
             res.status(500).json({
                 error: err,
@@ -55,8 +55,7 @@ const signup = (0, express_async_handler_1.default)((req, res) => __awaiter(void
             return;
         }
     });
-    console.log(hash);
-    const createdUseer = yield prisma.user.create({
+    const createdUser = yield prisma.user.create({
         data: {
             email,
             password: hash,

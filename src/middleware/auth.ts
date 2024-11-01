@@ -17,11 +17,10 @@ const authenticate = asyncHandler(
         token as string,
         process.env.ACCESS_TOKEN_SECRET as string
       );
-      console.log("decoded", decoded);
       req.user = await user.findUnique({
         where: { id: parseInt(decoded["id"]) },
       });
-      console.log(req.user);
+
       next();
     } catch (error) {
       res.status(401).json({

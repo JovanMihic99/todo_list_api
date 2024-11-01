@@ -5,12 +5,12 @@ import auth from "../../middleware/auth";
 const router = Router();
 
 // GET
-router.get("/", auth.authenticate, taskController.get_tasks);
+router.get("/", taskController.get_tasks);
 
 router.get("/:id", taskController.get_task_by_id);
 
 // POST
-router.post("/", auth.authenticate, taskController.add_task);
+router.post("/", taskController.add_task);
 router.post("/:id", taskController.update_task_by_id);
 
 // DELETE
