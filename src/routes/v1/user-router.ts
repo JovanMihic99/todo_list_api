@@ -11,7 +11,7 @@ router.get("/", userController.get_users);
 router.get("/:id", userController.get_user_by_id);
 
 // POST
-router.post("/signup", authController.signup);
+router.post("/register", authController.signup);
 router.post("/login", authController.login);
 
 // DELETE
