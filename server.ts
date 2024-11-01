@@ -21,7 +21,7 @@ app.use("/api/v1", v1);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
-  res.status(500).send("Something broke!");
+  res.status(500).json({ message: "Server error: something went wrong!" });
 });
 
 app.listen(port, () => {
