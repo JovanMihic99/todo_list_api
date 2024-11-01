@@ -82,12 +82,25 @@ const get_tasks_by_user_id = (0, express_async_handler_1.default)((req, res) => 
 // UPDATE
 const update_task_by_id = (0, express_async_handler_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const id = parseInt(req.params.id);
+    const userId = parseInt(req.user.id);
     const title = req.body.title;
     const description = req.body.description;
     const finishBy = req.body.finishBy;
     if (finishBy && isNaN(Date.parse(finishBy))) {
         res.status(400).json({
             message: "Invalid date format for finishBy. Please provide a valid date.",
+        });
+        return;
+    }
+    const task = yield prisma.task.findUnique({
+        where: {
+            id,
+            userId,
+        },
+    });
+    if (!task || task.userId !== req.user.id) {
+        res.status(400).json({
+            message: "Task not found or user not authorized.",
         });
         return;
     }

@@ -73,6 +73,7 @@ const get_tasks_by_user_id = asyncHandler(async (req, res) => {
 // UPDATE
 const update_task_by_id = asyncHandler(async (req, res) => {
   const id = parseInt(req.params.id);
+  const userId = parseInt(req.user.id);
   const title = req.body.title;
   const description = req.body.description;
   const finishBy = req.body.finishBy;
@@ -80,6 +81,20 @@ const update_task_by_id = asyncHandler(async (req, res) => {
   if (finishBy && isNaN(Date.parse(finishBy))) {
     res.status(400).json({
       message: "Invalid date format for finishBy. Please provide a valid date.",
+    });
+    return;
+  }
+
+  const task = await prisma.task.findUnique({
+    where: {
+      id,
+      userId,
+    },
+  });
+
+  if (!task || task.userId !== req.user.id) {
+    res.status(400).json({
+      message: "Task not found or user not authorized.",
     });
     return;
   }
