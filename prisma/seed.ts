@@ -14,7 +14,8 @@ async function main() {
       data: {
         email: faker.internet.email(),
         name: faker.person.fullName(),
-        password: faker.internet.password(),
+        password:
+          "$2b$10$4BmRFAqDgKloSlrRiENTxukqPg5mGeRQBjfWjvbN9QY7IXlvhB/zW", // all seeded users have password="password" for easier testing
         Task: {
           create: Array.from({ length: Math.floor(Math.random() * 5) + 1 }).map(
             () => ({
