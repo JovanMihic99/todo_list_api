@@ -4,6 +4,10 @@ services:
     container_name: todo_api_container
     ports:
       - 3000:3000
+    volumes:
+      - ./:/usr/src/app # Sync your local directory with the container
+      - /usr/src/app/node_modules # Avoid conflicts with node_modules in the container
+    command: npm run dev && ts-node prisma/seed.ts
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}

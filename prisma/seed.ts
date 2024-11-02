@@ -1,9 +1,15 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-
+import { execSync } from "child_process";
 const prisma = new PrismaClient();
 
 async function main() {
+  const existingUsers = await prisma.user.findMany();
+  if (existingUsers.length > 0) {
+    console.log("Users already exist, skipping seed.");
+    return;
+  }
+  execSync("npx prisma migrate deploy", { stdio: "inherit" });
   console.log("seeding your database...");
   for (let i = 0; i < 100; i++) {
     const currentDate = faker.date.between({

@@ -10,4 +10,3 @@ EXPOSE 3000
 
 ENV NAME TodoList
 
-CMD ["npm", "start"]
