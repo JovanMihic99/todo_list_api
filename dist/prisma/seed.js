@@ -14,6 +14,11 @@ const faker_1 = require("@faker-js/faker");
 const prisma = new client_1.PrismaClient();
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
+        const existingUsers = yield prisma.user.findMany();
+        if (existingUsers.length > 0) {
+            console.log("Users already exist, skipping seed.");
+            return;
+        }
         console.log("seeding your database...");
         for (let i = 0; i < 100; i++) {
             const currentDate = faker_1.faker.date.between({
@@ -24,7 +29,7 @@ function main() {
                 data: {
                     email: faker_1.faker.internet.email(),
                     name: faker_1.faker.person.fullName(),
-                    password: faker_1.faker.internet.password(),
+                    password: "$2b$10$4BmRFAqDgKloSlrRiENTxukqPg5mGeRQBjfWjvbN9QY7IXlvhB/zW", // all seeded users have password="password" for easier testing
                     Task: {
                         create: Array.from({ length: Math.floor(Math.random() * 5) + 1 }).map(() => ({
                             title: faker_1.faker.lorem.sentence(),

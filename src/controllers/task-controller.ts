@@ -44,7 +44,7 @@ const get_tasks = asyncHandler(async (req, res) => {
     return;
   }
   res.status(200).json({
-    message: `Successfully fetched ${data.length} tasks`,
+    message: `Successfully fetched ${data.length} tasks@`,
     page: page,
     totalPages: totalPages,
     data,

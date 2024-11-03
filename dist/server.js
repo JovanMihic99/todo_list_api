@@ -20,7 +20,7 @@ v1.use("/tasks", auth_1.default.authenticate, task_router_1.default);
 app.use("/api/v1", v1);
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({ message: "Server error: something went wrong!" });
+    res.status(500).json({ message: "Server error: something went wrong!!" });
 });
 app.listen(port, () => {
     console.log(`Todo List app listening on port ${port}`);

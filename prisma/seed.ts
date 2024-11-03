@@ -9,7 +9,6 @@ async function main() {
     console.log("Users already exist, skipping seed.");
     return;
   }
-  execSync("npx prisma migrate deploy", { stdio: "inherit" });
   console.log("seeding your database...");
   for (let i = 0; i < 100; i++) {
     const currentDate = faker.date.between({
