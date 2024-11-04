@@ -18,6 +18,7 @@ const v1 = express.Router();
 v1.use("/users", userRouter);
 v1.use("/tasks", auth.authenticate, taskRouter);
 app.use("/api/v1", v1);
+// KURAC
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
