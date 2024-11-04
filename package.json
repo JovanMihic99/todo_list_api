@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./dist/server.js",
     "build": "tsc",
-    "dev": "concurrently \"tsc -w\" \"nodemon\"",
+    "dev": "nodemon",
     "watch": "tsc -w",
     "migrate": "prisma migrate deploy"
   },

@@ -5,9 +5,9 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./:/usr/src/app # Sync your local directory with the container
-      - /usr/src/app/node_modules # Keeps `node_modules` separate to avoid conflicts
-    entrypoint: /usr/src/app/entrypoint.sh # Use the custom entrypoint
+      - ./:/app # Sync your local directory with the container
+      - /app/node_modules # Keeps `node_modules` separate to avoid conflicts
+    entrypoint: /app/entrypoint.sh # Use the custom entrypoint
     environment:
       DATABASE_HOST: ${DATABASE_HOST}
       DATABASE_PORT: ${DATABASE_PORT}
