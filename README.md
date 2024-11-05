@@ -23,12 +23,13 @@ A simple RESTful API for managing a todo list, built with Node.js and Express. T
 ## Technologies Used
 
 - Node.js
+- Typescript
 - Express.js
+- Docker
 - PostgreSQL
 - Prisma
 - Bcrypt
 - JSONWebToken
-- Docker
 
 ## Installation
 
