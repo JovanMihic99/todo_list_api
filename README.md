@@ -50,6 +50,7 @@ To run the API using Docker:
 4. Run the Docker image:
    ```bash
    docker compose up --build
-   The API will be running on `http://localhost:3000` (or the port you've configured).
-   The API docs can be found at `http://localhost:3000/api-docs/`
    ```
+
+The API will be running on `http://localhost:3000` (or the port you've configured).
+The API docs can be found at `http://localhost:3000/api-docs/`
