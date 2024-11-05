@@ -1,26 +1,11 @@
-import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import express from "express";
+import YAML from "yamljs";
+import path from "path";
 
 const setupSwagger = (app: express.Application) => {
-  const swaggerOptions = {
-    swaggerDefinition: {
-      openapi: "3.0.0",
-      info: {
-        title: "ToDo List API app",
-        version: "1.0.0",
-        description: "API Documentation",
-      },
-      servers: [
-        {
-          url: `http://localhost:3000/`,
-        },
-      ],
-    },
-    apis: ["./src/routes/v1/*.ts"],
-  };
-
-  const swaggerDocs = swaggerJsDoc(swaggerOptions);
-  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+  const swaggerDocument = YAML.load(path.join(__dirname, "./swagger.yaml"));
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 };
+
 export default setupSwagger;

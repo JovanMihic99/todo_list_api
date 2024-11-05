@@ -5,11 +5,12 @@ const router = Router();
 
 // GET
 router.get("/", taskController.get_tasks);
-
 router.get("/:id", taskController.get_task_by_id);
 
 // POST
 router.post("/", taskController.add_task);
+
+// PUT
 router.put("/:id", taskController.update_task_by_id);
 
 // DELETE

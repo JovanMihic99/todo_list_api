@@ -7,7 +7,7 @@ import auth from "../../middleware/auth";
 const router = Router();
 
 // GET
-router.get("/", userController.get_users);
+// router.get("/", userController.get_users);
 router.get("/:id", userController.get_user_by_id);
 
 // POST

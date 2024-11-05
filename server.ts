@@ -1,5 +1,4 @@
 import express, { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
 
 import setupSwagger from "./docs/swagger";
 
@@ -10,7 +9,6 @@ import auth from "./src/middleware/auth";
 const app = express();
 const port = 3000;
 app.use(express.json());
-const prisma = new PrismaClient();
 
 setupSwagger(app);
 
@@ -26,4 +24,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
 app.listen(port, () => {
   console.log(`Todo List app listening on port ${port}`);
+  console.log(
+    `API documentation is available at http://localhost:${port}/api-docs`
+  );
 });
