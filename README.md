@@ -23,11 +23,12 @@ The purpose of this app was mainly to develop a simple api on which I can learn 
 
 - Node.js
 - Express.js
+- Docker
 - PostgreSQL
 - Prisma
 - Bcrypt
 - JSONWebToken
-- Docker
+
 
 ## Installation
 
