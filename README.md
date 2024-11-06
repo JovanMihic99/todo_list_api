@@ -14,7 +14,7 @@ The purpose of this app was mainly to develop a simple api on which I can learn 
 ## Features
 
 - Create new todo items
-- Retrieve a list of all todo items
+- Retrieve a list of all todo items belonging to an authenticated user
 - Update existing todo items
 - Delete todo items
 - Mark todo items as complete
