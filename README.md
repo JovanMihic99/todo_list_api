@@ -8,7 +8,6 @@ The purpose of this app was mainly to develop a simple api on which I can learn 
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
-- [API Endpoints](#api-endpoints)
 - [Usage](#usage)
 
 ## Features
