@@ -76,7 +76,7 @@ docker build -t todo_list_api .
 ```bash
 docker compose up --build
 ```
-
+## Usage
 The API will be running on `http://localhost:3000` (or the port you’ve configured).
 
 The API documentation can be accessed at `http://localhost:3000/api-docs/`.
