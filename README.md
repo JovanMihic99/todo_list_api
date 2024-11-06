@@ -1,6 +1,6 @@
 # Todo List API
 
-A simple RESTful API for managing a todo list, built with Node.js and Express. This API allows users to create, read, update, and delete todo items, making it easy to keep track of tasks.
+A simple Dockerized RESTful API for managing a todo list, built with Node.js and Express. This API allows users to create, read, update, and delete todo items, making it easy to keep track of tasks.
 The purpose of this app was mainly to develop a simple api on which I can learn to use Docker as well as get more practice with Prisma and Postgres. 
 
 ## Table of Contents
